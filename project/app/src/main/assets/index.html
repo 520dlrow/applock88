@@ -1,270 +1,348 @@
-<!doctype html
-<html lang="en"
-<head
-<meta charset="utf-8"
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"
-<meta name="theme-color" content="#0e0e10"
-<titleBrowser 88</title
-<link rel="preconnect" href="https://fonts.googleapis.com"
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"
-<style
-/* ============================================================
-   Browser 88 — top bar
-   The one thing I see on every page. Kept it small, quiet,
-   typography-first.
-   ============================================================ */
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>App Lock 88</title>
+<style>
 :root{
   --bg:#0e0e10;
   --surface:#17171a;
   --surface-2:#1f1f24;
-  --surface-3:#26262d;
   --line:rgba(245,241,232,.07);
-  --line-2:rgba(245,241,232,.12);
   --text:#f5f1e8;
   --text-dim:#8a8678;
   --text-faint:#4a4842;
   --gold:#e8b923;
-  --ember:#d4421c;
   --green:#7aab5c;
   --red:#d43d2e;
   color-scheme:dark;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;overflow:hidden}
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:'Manrope',system-ui,sans-serif;
+html,body{
+  background:var(--bg);color:var(--text);
+  font-family:-apple-system,'Segoe UI',Roboto,sans-serif;
   -webkit-font-smoothing:antialiased;
-  padding-top:env(safe-area-inset-top);
-  display:flex;
-  align-items:stretch;
 }
+body{padding:0 0 40px}
 
-/* ---------- the bar ---------- */
-.bar{
-  display:grid;
-  grid-template-columns:auto 1fr auto;
-  align-items:center;
-  gap:10px;
-  padding:10px 12px;
-  width:100%;
-  background:var(--bg);
+.head{
+  padding:28px 22px 20px;
   border-bottom:1px solid var(--line);
+  text-align:center;
+}
+.mark{
+  font-family:Georgia,serif;font-style:italic;
+  font-size:56px;line-height:1;
+  color:var(--gold);letter-spacing:-.05em;
+  margin-bottom:6px;
+}
+.title{font-size:17px;font-weight:600;margin-bottom:3px}
+.sub{
+  font-size:10.5px;color:var(--text-faint);
+  letter-spacing:.15em;text-transform:uppercase;
 }
 
-/* Brand mark. Italic serif "88" — quiet signature. */
-.brand{
-  width:38px;height:38px;
-  display:grid;place-items:center;
-  font-family:'Instrument Serif',serif;
-  font-style:italic;
-  font-size:19px;
-  color:var(--gold);
-  letter-spacing:-.04em;
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:11px;
-  flex-shrink:0;
-  user-select:none;
-  transition:background .25s ease,border-color .25s ease;
-}
-.brand:active{background:var(--surface-2)}
-
-/* URL pill — the centerpiece */
-.url{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  height:38px;
-  padding:0 14px;
-  background:var(--surface);
-  border:1px solid var(--line);
+.status{
+  margin:16px 22px 0;
+  padding:14px 16px;
   border-radius:12px;
-  min-width:0;
-  transition:all .3s cubic-bezier(.2,.8,.2,1);
-  position:relative;
-}
-.url:focus-within{
-  background:var(--surface-2);
-  border-color:rgba(232,185,35,.45);
-  box-shadow:0 0 0 3px rgba(232,185,35,.08);
-}
-.url.secure .lock{stroke:var(--green)}
-.url.insecure .lock{stroke:var(--red)}
-
-.lock{
-  width:13px;height:13px;flex-shrink:0;
-  fill:none;stroke:var(--text-faint);
-  stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;
-  transition:stroke .25s ease;
-}
-.url-input{
-  flex:1;min-width:0;
-  background:transparent;border:0;outline:none;
-  color:var(--text);
-  font-family:'IBM Plex Mono',monospace;
-  font-size:13.5px;
-  letter-spacing:-.01em;
-  padding:0;
-  height:100%;
-}
-.url-input::placeholder{color:var(--text-faint);font-family:'Manrope',sans-serif;font-style:italic}
-.url:focus-within .url-input{
-  font-family:'Manrope',sans-serif;
-  font-size:14px;
-  letter-spacing:0;
-}
-
-/* Menu button */
-.menu{
-  width:38px;height:38px;
-  display:grid;place-items:center;
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:11px;
+  display:flex;align-items:center;gap:12px;
+  font-size:13.5px;font-weight:500;
   cursor:pointer;
+}
+.status.on{background:rgba(122,171,92,.12);color:var(--green);border:1px solid rgba(122,171,92,.3)}
+.status.off{background:rgba(212,61,46,.12);color:var(--red);border:1px solid rgba(212,61,46,.3)}
+.status .dot{
+  width:8px;height:8px;border-radius:50%;
+  background:currentColor;flex-shrink:0;
+}
+.status .txt{flex:1}
+.status .arrow{color:var(--text-faint);font-size:16px}
+
+.section{margin-top:20px;padding:0 22px}
+.section-h{
+  font-size:10.5px;color:var(--text-faint);
+  letter-spacing:.15em;text-transform:uppercase;
+  margin-bottom:10px;font-weight:600;
+  display:flex;align-items:center;gap:12px;
+}
+.section-h::after{
+  content:'';flex:1;height:1px;background:var(--line);
+}
+
+.pin-box{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:14px;padding:16px;margin-bottom:8px;
+}
+.pin-input{
+  width:100%;height:48px;padding:0 14px;
+  background:var(--surface-2);border:1px solid var(--line);
+  border-radius:11px;color:var(--text);
+  font-size:18px;font-family:monospace;letter-spacing:.3em;
+  text-align:center;outline:none;
+}
+.pin-input:focus{border-color:var(--gold)}
+.pin-btn{
+  width:100%;height:46px;margin-top:10px;
+  background:var(--gold);color:var(--bg);
+  border:0;border-radius:11px;
+  font-size:14.5px;font-weight:700;cursor:pointer;
+}
+.pin-btn:active{transform:scale(.98)}
+.pin-hint{
+  font-size:11px;color:var(--text-faint);
+  text-align:center;margin-top:8px;
+}
+
+.search{
+  width:100%;height:42px;padding:0 14px;margin-bottom:10px;
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:11px;color:var(--text);
+  font-size:14px;outline:none;
+}
+.search:focus{border-color:var(--gold)}
+
+.app-list{
+  display:flex;flex-direction:column;gap:2px;
+}
+.app-item{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 14px;
+  background:var(--surface);
+  border-radius:10px;
+  transition:background .15s;
+}
+.app-item:active{background:var(--surface-2)}
+.app-icon{
+  width:38px;height:38px;border-radius:10px;
+  background:linear-gradient(135deg,#2a2a30,#1a1a20);
+  display:grid;place-items:center;
+  font-family:Georgia,serif;font-style:italic;
+  font-size:17px;color:var(--gold);
   flex-shrink:0;
-  transition:all .2s ease;
 }
-.menu:active{background:var(--surface-2);transform:scale(.95)}
-.menu svg{
-  width:16px;height:16px;
-  fill:none;stroke:var(--text-dim);
-  stroke-width:2.4;stroke-linecap:round;
-  transition:stroke .2s ease;
+.app-meta{flex:1;min-width:0}
+.app-label{
+  font-size:14px;font-weight:500;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
 }
-.menu:hover svg{stroke:var(--gold)}
-
-/* Loading bar — very slim, thin line at the bottom */
-.load{
-  position:absolute;
-  left:0;right:0;bottom:0;
-  height:1.5px;
-  overflow:hidden;
-  opacity:0;
-  transition:opacity .3s ease;
-  pointer-events:none;
+.app-pkg{
+  font-size:10.5px;color:var(--text-faint);
+  font-family:monospace;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  margin-top:2px;
 }
-.load.on{opacity:1}
-.load::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);
-  background-size:40% 100%;
-  animation:sweep 1.2s linear infinite;
+.switch{
+  width:44px;height:26px;border-radius:13px;
+  background:#2a2a30;border:1px solid var(--line);
+  position:relative;cursor:pointer;
+  flex-shrink:0;transition:background .25s;
 }
-@keyframes sweep{
-  0%{background-position:-40% 0}
-  100%{background-position:140% 0}
+.switch::after{
+  content:'';position:absolute;top:2px;left:2px;
+  width:20px;height:20px;border-radius:50%;
+  background:var(--text-faint);
+  transition:transform .25s cubic-bezier(.2,.8,.2,1),background .25s;
 }
-</style
-</head
-<body
+.switch.on{background:rgba(232,185,35,.2);border-color:rgba(232,185,35,.5)}
+.switch.on::after{transform:translateX(18px);background:var(--gold)}
 
-<div class="bar"
-  <div class="brand" id="brand" title="Home"88</div
+.empty{
+  padding:40px 20px;text-align:center;
+  color:var(--text-faint);font-size:13px;
+}
 
-  <div class="url" id="urlWrap"
-    <svg class="lock" id="lock" viewBox="0 0 24 24"
-      <rect x="4" y="10" width="16" height="10" rx="2"/
-      <path d="M8 10V7a4 4 0 0 1 8 0v3"/
-    </svg
-    <input class="url-input" id="urlInput" type="text"
-           placeholder="Search or enter address"
-           autocomplete="off" autocorrect="off" autocapitalize="off"
-           spellcheck="false" inputmode="url" enterkeyhint="go"
-  </div
+.footer{
+  margin-top:40px;padding:24px 22px 0;
+  border-top:1px solid var(--line);
+  text-align:center;
+  font-family:monospace;font-size:10px;
+  color:var(--text-faint);letter-spacing:.06em;line-height:1.9;
+}
+.footer b{color:var(--text-dim);font-weight:600}
+.footer a{color:var(--gold);text-decoration:none}
+</style>
+</head>
+<body>
 
-  <button class="menu" id="menuBtn" title="Menu"
-    <svg viewBox="0 0 24 24"
-      <line x1="4" y1="7" x2="20" y2="7"/
-      <line x1="4" y1="12" x2="20" y2="12"/
-      <line x1="4" y1="17" x2="14" y2="17"/
-    </svg
-  </button
+<div class="head">
+  <div class="mark">88</div>
+  <div class="title">App Lock 88</div>
+  <div class="sub">Simple · Effective</div>
+</div>
 
-  <div class="load" id="load"</div
-</div
+<div class="status off" id="status" onclick="openAccessibility()">
+  <div class="dot"></div>
+  <div class="txt" id="statusText">Service disabled — tap to enable</div>
+  <div class="arrow">›</div>
+</div>
 
-<script
+<div class="section">
+  <div class="section-h">PIN</div>
+  <div class="pin-box" id="pinBox">
+    <input class="pin-input" id="pinInput" type="tel" inputmode="numeric"
+           pattern="[0-9]*" maxlength="8" placeholder="••••" autocomplete="off">
+    <button class="pin-btn" id="pinBtn">Set PIN</button>
+    <div class="pin-hint" id="pinHint">At least 4 digits. Stored as hash. Never sent anywhere.</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-h">Lock apps</div>
+  <input class="search" id="search" type="text" placeholder="Search apps..." autocomplete="off">
+  <div class="app-list" id="appList">
+    <div class="empty">Loading...</div>
+  </div>
+</div>
+
+<div class="footer">
+  <b>App Lock 88</b><br>
+  Copyright &copy; 2026 MC88<br>
+  <a href="mailto:mohamed005cheikh@gmail.com">mohamed005cheikh@gmail.com</a><br>
+  MIT License
+</div>
+
+<script>
 (function(){
 'use strict';
 
-const $ = id = document.getElementById(id);
-const urlInput = $('urlInput');
-const urlWrap = $('urlWrap');
-const loadBar = $('load');
-const brand = $('brand');
+var $ = function(id){ return document.getElementById(id); };
 
-const NATIVE = typeof window.AndroidBridge !== 'undefined' && window.AndroidBridge !== null;
-const IS_ANDROID = NATIVE && typeof window.AndroidBridge.getVersion === 'function';
+var BRIDGE = (typeof window.AndroidBridge !== 'undefined') ? window.AndroidBridge : null;
+var allApps = [];
+var locked = new Set();
 
-function bridge(method, ...args){
-  if(!IS_ANDROID) return;
-  const fn = window.AndroidBridge[method];
-  if(typeof fn === 'function'){
-    try { fn.apply(window.AndroidBridge, args); } catch(e){}
+function bridgeCall(method){
+  if(!BRIDGE) return null;
+  var fn = BRIDGE[method];
+  if(typeof fn !== 'function') return null;
+  try {
+    var args = Array.prototype.slice.call(arguments, 1);
+    return fn.apply(BRIDGE, args);
+  } catch(e){ return null; }
+}
+
+function escapeHtml(s){
+  return String(s||'').replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+
+function initial(label){
+  var t = String(label||'').trim();
+  return t ? t[0].toUpperCase() : '?';
+}
+
+/* ---------- service status ---------- */
+function refreshServiceStatus(){
+  var enabled = bridgeCall('isServiceEnabled');
+  var el = $('status');
+  var txt = $('statusText');
+  if(enabled){
+    el.className = 'status on';
+    txt.textContent = 'Service enabled — apps will be locked';
+  } else {
+    el.className = 'status off';
+    txt.textContent = 'Service disabled — tap to enable';
+  }
+}
+window.onServiceCheck = refreshServiceStatus;
+
+function openAccessibility(){
+  bridgeCall('openAccessibilitySettings');
+}
+
+/* ---------- PIN ---------- */
+function refreshPin(){
+  var has = bridgeCall('hasPin');
+  if(has){
+    $('pinBtn').textContent = 'Change PIN';
+    $('pinHint').textContent = 'PIN is set. Enter new one to change it.';
+  } else {
+    $('pinBtn').textContent = 'Set PIN';
+    $('pinHint').textContent = 'At least 4 digits. Stored as hash. Never sent anywhere.';
   }
 }
 
-/* Turn whatever the user typed into a real URL.
-   If it looks like a URL, use it. Otherwise search. */
-function normalize(raw){
-  let s = String(raw || '').trim();
-  if(!s) return '';
-  if(/^https?:\/\//i.test(s)) return s;
-  if(/^about:blank$/i.test(s)) return s;
-  if(/^[\w-]+(\.[\w-]+)+(\/.*)?$/.test(s)) return 'https://' + s;
-  if(/^localhost(:\d+)?/.test(s)) return 'http://' + s;
-  return 'https://duckduckgo.com/?q=' + encodeURIComponent(s);
-}
-
-urlInput.addEventListener('focus', () = {
-  setTimeout(() = urlInput.setSelectionRange(0, urlInput.value.length), 10);
-});
-
-urlInput.addEventListener('keydown', e = {
-  if(e.key === 'Enter'){
-    e.preventDefault();
-    urlInput.blur();
-    const u = normalize(urlInput.value);
-    if(u) bridge('navigate', u);
+function savePin(){
+  var v = $('pinInput').value.trim();
+  if(v.length < 4){
+    $('pinInput').focus();
+    return;
   }
-});
-
-brand.addEventListener('click', () = bridge('goHome'));
-$('menuBtn').addEventListener('click', () = bridge('toggleMenu'));
-
-/* Lock icon state */
-function updateLock(url){
-  urlWrap.classList.remove('secure','insecure');
-  if(!url) return;
-  if(/^https:\/\//i.test(url)) urlWrap.classList.add('secure');
-  else if(/^http:\/\//i.test(url)) urlWrap.classList.add('insecure');
+  bridgeCall('setPin', v);
+  $('pinInput').value = '';
+  refreshPin();
+  $('pinHint').textContent = 'PIN saved.';
 }
 
-/* ============================================================
-   Callbacks from Android
-   ============================================================ */
-window.shellSetUrl = url = {
-  urlInput.value = url || '';
-  updateLock(url);
-};
+/* ---------- app list ---------- */
+function refreshApps(){
+  var raw = bridgeCall('getApps');
+  try { allApps = raw ? JSON.parse(raw) : []; }
+  catch(e){ allApps = []; }
 
-window.shellSetProgress = loading = {
-  if(loading) loadBar.classList.add('on');
-  else loadBar.classList.remove('on');
-};
+  var rawL = bridgeCall('getLocked');
+  try {
+    var arr = rawL ? JSON.parse(rawL) : [];
+    locked = new Set(arr);
+  } catch(e){ locked = new Set(); }
 
-window.shellFocusUrl = () = {
-  urlInput.focus();
-  setTimeout(() = urlInput.setSelectionRange(0, urlInput.value.length), 20);
-};
+  renderApps();
+}
+
+function renderApps(){
+  var q = $('search').value.trim().toLowerCase();
+  var list = allApps.filter(function(a){
+    if(!q) return true;
+    return (a.label||'').toLowerCase().indexOf(q) !== -1 ||
+           (a.pkg||'').toLowerCase().indexOf(q) !== -1;
+  });
+
+  var box = $('appList');
+  if(!list.length){
+    box.innerHTML = '<div class="empty">No apps found.</div>';
+    return;
+  }
+
+  box.innerHTML = list.map(function(a){
+    var on = locked.has(a.pkg);
+    return '<div class="app-item">'
+      +    '<div class="app-icon">' + escapeHtml(initial(a.label)) + '</div>'
+      +    '<div class="app-meta">'
+      +      '<div class="app-label">' + escapeHtml(a.label) + '</div>'
+      +      '<div class="app-pkg">' + escapeHtml(a.pkg) + '</div>'
+      +    '</div>'
+      +    '<div class="switch' + (on ? ' on' : '') + '" data-pkg="' + escapeHtml(a.pkg) + '"></div>'
+      +  '</div>';
+  }).join('');
+
+  Array.prototype.forEach.call(box.querySelectorAll('.switch'), function(sw){
+    sw.addEventListener('click', function(){
+      var pkg = sw.getAttribute('data-pkg');
+      var nowOn = !sw.classList.contains('on');
+      sw.classList.toggle('on', nowOn);
+      bridgeCall('setLocked', pkg, nowOn);
+      if(nowOn) locked.add(pkg); else locked.delete(pkg);
+    });
+  });
+}
+
+/* ---------- wire up ---------- */
+document.addEventListener('DOMContentLoaded', function(){
+  refreshServiceStatus();
+  refreshPin();
+  refreshApps();
+
+  $('pinBtn').addEventListener('click', savePin);
+  $('pinInput').addEventListener('keydown', function(e){
+    if(e.key === 'Enter') savePin();
+  });
+  $('search').addEventListener('input', renderApps);
+});
 
 })();
-</script
-</body
-</html
+</script>
+</body>
+</html>
