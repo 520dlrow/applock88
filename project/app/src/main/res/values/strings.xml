@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">App Lock 88</string>
+    <string name="accessibility_description">App Lock 88 watches which app is opened, so it can show a lock screen when a protected app starts. Nothing leaves your device. No internet permission, no analytics, no server.</string>
 </resources>
