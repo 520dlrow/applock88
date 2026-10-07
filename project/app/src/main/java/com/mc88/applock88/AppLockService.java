@@ -1,4 +1,4 @@
-package com.mc88.applock;
+package com.mc88.applock88;
 
 import android.accessibilityservice.AccessibilityService;
 import android.content.Intent;
