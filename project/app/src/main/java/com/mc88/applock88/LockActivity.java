@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
@@ -21,6 +20,8 @@ public class LockActivity extends Activity {
 
     private static final String PREFS = "applock";
     private static final String KEY_PIN_HASH = "pin_hash";
+    private static final String KEY_LAST_PKG = "last_unlocked_pkg";
+    private static final String KEY_LAST_TIME = "last_unlock_time";
 
     private WebView webView;
     private String targetPkg;
@@ -77,7 +78,7 @@ public class LockActivity extends Activity {
         home.addCategory(Intent.CATEGORY_HOME);
         home.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(home);
-        finish();
+        finishAndRemoveTask();
     }
 
     private String sha256(String input) {
@@ -120,10 +121,19 @@ public class LockActivity extends Activity {
             SharedPreferences sp = getSharedPreferences(PREFS, MODE_PRIVATE);
             String saved = sp.getString(KEY_PIN_HASH, "");
             if(saved.isEmpty()) return false;
+
             boolean ok = saved.equals(sha256(pin));
             if(ok){
+                // Save grace period so the service does not reopen the lock screen
+                sp.edit()
+                    .putString(KEY_LAST_PKG, targetPkg)
+                    .putLong(KEY_LAST_TIME, System.currentTimeMillis())
+                    .apply();
+
                 runOnUiThread(new Runnable(){
-                    @Override public void run(){ finish(); }
+                    @Override public void run(){
+                        finishAndRemoveTask();
+                    }
                 });
             }
             return ok;
