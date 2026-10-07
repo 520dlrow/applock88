@@ -1,4 +1,4 @@
-package com.mc88.applock;
+package com.mc88.applock88;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
